@@ -1,0 +1,4 @@
+ci servono 3 bucket:
+- dati 
+- script (codice)
+- log di esecuzione 
