@@ -34,7 +34,7 @@ module.exports.watch_next_by_id = (event, context, callback) => {
     connect_to_db().then(() => { // Connette al db
         console.log('=> get watch next talks by ID'); 
 
-        next.find({ id: body.id_related }) // Prendo id_related del talk, salvo i talk con quell'id
+        next.find({ "_id": body.id_related }) // Prendo id_related del talk, salvo i talk con quell'id
             .skip((body.doc_per_page * body.page) - body.doc_per_page)
             .limit(body.doc_per_page)
             .then(next =>{
