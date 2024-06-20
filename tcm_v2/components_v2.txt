@@ -1,0 +1,9 @@
+STACK:
+MYTEDXGRETA
+
+RISORSE BUCKET: 
+tcm-data-greta
+tcm-script-greta
+tcm-logs-greta
+
+CONNESSIONE: TCM_TEDX
