@@ -15,13 +15,13 @@ module.exports.watch_next_by_id = (event, context, callback) => {
     }
 
     // Controlla se l'ID è presente nel corpo della richiesta
-    if(!body.id) {
+    if(!body.id_related) {
         callback(null, {
             statusCode: 500, 
             headers: { 'Content-Type': 'text/plain' },
             body: 'Could not fetch the related talks. ID is null.' 
         });
-        return; // Esce dalla funzione se l'ID non è presente
+        return; // Esce dalla funzione se non sono presenti id related
     }
 
     if (!body.doc_per_page) {

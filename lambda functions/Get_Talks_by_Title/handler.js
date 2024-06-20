@@ -13,11 +13,11 @@ module.exports.get_by_tag = (event, context, callback) => {
         body = JSON.parse(event.body)
     }
     // set default
-    if(!body.tag) {
+    if(!body.title) {
         callback(null, {
                     statusCode: 500,
                     headers: { 'Content-Type': 'text/plain' },
-                    body: 'Could not fetch the talks. Tag is null.'
+                    body: 'Could not fetch the talks. Title is null.'
         })
     }
     
