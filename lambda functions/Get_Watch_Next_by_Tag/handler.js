@@ -4,7 +4,7 @@ const connect_to_db = require('./db'); // Importa la funzione per connettersi al
 
 const next = require('./Next'); // Importa il modello 'Next'
 
-module.exports.watch_next_by_id = (event, context, callback) => {
+module.exports.watch_next_by_tag = (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false; // Impedisce che la funzione Lambda attenda che l'event loop sia vuoto prima di restituire una risposta
 
     console.log('Received event:', JSON.stringify(event, null, 2)); // Logga l'evento ricevuto per il debug
