@@ -3,7 +3,7 @@ const connect_to_db = require('./db');
 
 // GET BY TALK HANDLER
 
-const next = require('./Next');
+const talk = require('./Talk');
 
 module.exports.get_by_tag = (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
