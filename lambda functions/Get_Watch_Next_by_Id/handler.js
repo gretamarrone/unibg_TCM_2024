@@ -31,17 +31,20 @@ module.exports.watch_next_by_id = (event, context, callback) => {
         body.page = 1
     }
 
+    var slice= {}
+    if (body.slice) {
+        slice = { id_related: { $slice: body.slice} }
+    }
+
     connect_to_db().then(() => { // Connette al db
         console.log('=> get watch next talks by ID'); 
-
-        next.find({ "_id": body.id_related }) // Prendo id_related del talk, salvo i talk con quell'id
+        next.find({ _id : body._id }, slice) // Prendo id_related del talk, salvo i talk con quell'id
             .skip((body.doc_per_page * body.page) - body.doc_per_page)
             .limit(body.doc_per_page)
-            .then(next =>{
-                // Ora nextItem contiene l'intero oggetto trovato nel database
+            .then(talks=>{
                 callback(null, {
                     statusCode: 200, // successo
-                    body: JSON.stringify(next) // Restituisce l'intero oggetto come stringa JSON
+                    body: JSON.stringify(talks.id_related) // Restituisce l'id come stringa JSON
                     })
                 }
             )
