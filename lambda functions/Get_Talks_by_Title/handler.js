@@ -5,7 +5,7 @@ const connect_to_db = require('./db');
 
 const talk = require('./Talk');
 
-module.exports.get_by_tag = (event, context, callback) => {
+module.exports.get_by_title = (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
     console.log('Received event:', JSON.stringify(event, null, 2));
     let body = {}
