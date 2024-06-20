@@ -30,7 +30,7 @@ module.exports.get_by_title = (event, context, callback) => {
     
     connect_to_db().then(() => {
         console.log('=> get_all talks');
-        talk.find({titles: body.title})
+        talk.find({titles: { $regex: body.title, $options: 'i' }})
             .skip((body.doc_per_page * body.page) - body.doc_per_page)
             .limit(body.doc_per_page)
             .then(talks => {
