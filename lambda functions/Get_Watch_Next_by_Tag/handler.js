@@ -31,18 +31,24 @@ module.exports.watch_next_by_tag = (event, context, callback) => {
         body.page = 1
     }
 
-    //dal body.tag ottengo i tag related, poi prendo i talk con i tag ottenuti
+
+    var slice= {}
+    if (body.slice) {
+        slice = { tag_related: { $slice: body.slice} }
+    }
+
+
     connect_to_db().then(() => { // Connette al db
         console.log('=> get watch next talks by tags'); 
 
-        next.find({ tag: body.tag_related }) // Prendo id_related del talk, salvo i talk con quell'id
+        next.find({ _id: body._id }, slice) 
+            .sort({ tf_idf: 1 }) 
             .skip((body.doc_per_page * body.page) - body.doc_per_page)
             .limit(body.doc_per_page)
-            .then(next =>{
-                // Ora nextItem contiene l'intero oggetto trovato nel database
+            .then(talks =>{
                 callback(null, {
                     statusCode: 200, // successo
-                    body: JSON.stringify(next) // Restituisce l'intero oggetto come stringa JSON
+                    body: JSON.stringify(talks.tag_related) // Restituisce l'intero oggetto come stringa JSON
                     })
                 }
             )

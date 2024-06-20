@@ -32,7 +32,7 @@ module.exports.get_by_score = (event, context, callback) => {
         console.log('=> get_all talks');
         //tf idf, ordinato crescente 
         talk.find({tags: body.tag})
-            .sort({ 'tf-idf': -1 }) // Sort by tf-idf score in descending order
+            .sort({ tf_idf: 1 }) // Sort by tf-idf score in descending order
             .skip((body.doc_per_page * body.page) - body.doc_per_page)
             .limit(body.doc_per_page)
             .then(talks => {
