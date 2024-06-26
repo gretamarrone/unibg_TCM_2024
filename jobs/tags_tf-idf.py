@@ -76,6 +76,10 @@ df_tedx_dataset = df_tedx_dataset.withColumn("idf", log(N / col("df")))
 tf_idf_tedx_dataset = tf_tedx_dataset.join(df_tedx_dataset, "tags")
 tf_idf_tedx_dataset = tf_idf_tedx_dataset.withColumn("tf_idf", col("tf") * col("idf"))
 
+# REJOIN WITH THE ORIGINAL DATASET TO INCLUDE TITLE AND URL
+tf_idf_tedx_dataset = tf_idf_tedx_dataset.join(tedx_dataset.select("id", "tags", "title", "url"), on=["id", "tags"])
+
+
 # GROUP BY TAG AND AGGREGATE
 grouped_tedx_dataset = tf_idf_tedx_dataset.groupBy("tags").agg(
     count("id").alias("count"),

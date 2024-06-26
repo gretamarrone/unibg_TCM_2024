@@ -1,0 +1,2 @@
+FIXES DB:
+- Related_tags: collezione tedx_related_tags, campo tag_related, è un array dentro un array 
