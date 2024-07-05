@@ -125,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:const Color.fromARGB(255, 221, 243, 225), // Sfondo verde chiaro
+      backgroundColor: Color.fromARGB(255, 221, 243, 225), // Sfondo verde chiaro
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 132, 199, 135),
         title: const Text('Login'),
@@ -227,7 +227,7 @@ class _RegisterPageState extends State<RegisterPage> {
    @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 221, 243, 225), // Sfondo verde chiaro
+      backgroundColor: Color.fromARGB(255, 221, 243, 225), // Sfondo verde chiaro
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 132, 199, 135),
         title: const Text('Registrazione'),
@@ -311,7 +311,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         }
                         return _selectedRole == 'Studente'
                             ? const Color.fromARGB(255, 132, 199, 135)
-                            : const Color.fromARGB(255, 233, 236, 231)!; // Colore diverso quando selezionato
+                            : const Color.fromARGB(255, 242, 255, 234); // Colore diverso quando selezionato
                       }),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
@@ -335,7 +335,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         }
                         return _selectedRole == 'Insegnante'
                             ? const Color.fromARGB(255, 132, 199, 135)
-                            : const Color.fromARGB(255, 233, 236, 231)!; // Colore diverso quando selezionato
+                            : const Color.fromARGB(255, 242, 255, 234); // Colore diverso quando selezionato
                       }),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
