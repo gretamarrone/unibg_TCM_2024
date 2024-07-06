@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../models/talk.dart';
-import '../models/next.dart';
+import 'talk.dart';
+import 'next.dart';
 
 Future<List<Talk>> initEmptyList() async {
 
