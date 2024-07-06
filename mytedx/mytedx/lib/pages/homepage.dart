@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'video_navigation.dart'; // Importa il file per la navigazione dei video
+import '../models/talk.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 221, 243, 225), // Cambia il colore della barra superiore
-        title: Text('Homepage'),
+        backgroundColor: const Color.fromARGB(255, 221, 243, 225), // Cambia il colore della barra superiore
+        title: const Text('Homepage'),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout), // Icona di logout
+            icon: const Icon(Icons.logout), // Icona di logout
             onPressed: () {
               // Implementazione dell'azione per il logout
               showDialog(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
-                  title: Text("Logout effettuato con successo"),
+                  title: const Text("Logout effettuato con successo"),
                   actions: <Widget>[
                     TextButton(
-                      child: Text("OK"),
+                      child: const Text("OK"),
                       onPressed: () {
                         Navigator.of(context).pop(); // Chiudi il dialog
                         Navigator.of(context).pushNamed('/'); // Vai alla pagina principale (main.dart)
@@ -38,9 +39,11 @@ class HomePage extends StatelessWidget {
         children: [
           // Prima barra in alto (fissa) per il titolo del video TEDx
           Container(
-            color: Color.fromARGB(255, 221, 243, 225), // Cambia il colore della barra di ricerca
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            color: const Color.fromARGB(255, 221, 243, 225), // Cambia il colore della barra di ricerca
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: TextField(
+              // per chiamare la funzione
+              // controller: _controller1,
               decoration: InputDecoration(
                 hintText: 'Digita il titolo del video TEDx...',
                 border: OutlineInputBorder(
@@ -56,30 +59,30 @@ class HomePage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Color.fromARGB(255, 221, 243, 225), // Cambia il colore della barra inferiore
+        color: const Color.fromARGB(255, 221, 243, 225), // Cambia il colore della barra inferiore
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: Icon(Icons.person),
+              icon: const Icon(Icons.person),
               onPressed: () {
                 // Implementa l'azione per il profilo
               },
             ),
             IconButton(
-              icon: Icon(Icons.notifications),
+              icon: const Icon(Icons.notifications),
               onPressed: () {
                 // Implementa l'azione per le notifiche
               },
             ),
             IconButton(
-              icon: Icon(Icons.group),
+              icon: const Icon(Icons.group),
               onPressed: () {
                 // Implementa l'azione per i gruppi
               },
             ),
             IconButton(
-              icon: Icon(Icons.favorite),
+              icon: const Icon(Icons.favorite),
               onPressed: () {
                 // Implementa l'azione per i preferiti
               },

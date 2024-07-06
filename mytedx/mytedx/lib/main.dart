@@ -22,6 +22,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/home': (context) => HomePage(), // Aggiunto il route per la homepage
+        //'/video_navigation': (context) => VideoNavigation(), // Rotta per la navigazione video
+        
       },
     );
   }
