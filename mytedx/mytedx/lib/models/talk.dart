@@ -6,6 +6,7 @@ class Talk {
   final List<String> idRelated;
   final List<String> titleRelated;
   final List<String> tagRelated;
+  final double popularityScore;
 
   Talk({
     required this.id,
@@ -15,6 +16,7 @@ class Talk {
     required this.idRelated,
     required this.titleRelated,
     required this.tagRelated,
+    required this.popularityScore,
   });
 
   factory Talk.fromCsv(List<dynamic> row) {
@@ -26,6 +28,7 @@ class Talk {
       idRelated: row[4].toString().split(','),
       titleRelated: row[5].toString().split(','),
       tagRelated: row[6].toString().split(','),
+      popularityScore: double.parse(row[8].toString()),
     );
   }
 }

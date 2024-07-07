@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'pages/homepage.dart';
+import 'pages/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+// Inizializza users come un Map di Map
+final Map<String, Map<String, dynamic>> users = {};
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -29,8 +33,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// In-memory user storage for testing purposes
-final Map<String, String> users = {};
+String loggedInUserEmail = ''; // Variabile per memorizzare l'email dell'utente loggato
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -113,8 +116,9 @@ class _LoginPageState extends State<LoginPage> {
       final email = _emailController.text;
       final password = _passwordController.text;
 
-      if (users.containsKey(email) && users[email] == password) {
+      if (users.containsKey(email) && users[email]!= null && users[email]!['password'] == password) {
         // Navigate to home page on successful login
+        loggedInUserEmail = email; // Memorizza l'email dell'utente loggato
         Navigator.pushNamed(context, '/home');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -205,31 +209,45 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
-  String _selectedRole = 'Studente'; // Aggiunto il ruolo selezionato
+  final TextEditingController _nameController = TextEditingController(); // Aggiunto per il nome
+  final TextEditingController _surnameController = TextEditingController(); // Aggiunto per il cognome
+  String _selectedRole = 'Studente';
 
   void _register() {
     if (_formKey.currentState!.validate()) {
       final email = _emailController.text;
       final password = _passwordController.text;
+      final name = _nameController.text; // Recupera il nome
+      final surname = _surnameController.text; // Recupera il cognome
 
       if (users.containsKey(email)) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Email già registrata')),
         );
       } else {
-        users[email] = password;
+        // Memorizza i dati dell'utente
+        users[email] = {
+          'password': password,
+          'name': name,
+          'surname': surname,
+          'role': _selectedRole,
+        };
+        // Aggiungi il nome e cognome all'utente
+        // Puoi decidere come gestire queste informazioni, ad esempio salvandole in un altro oggetto
+        // o modificando la struttura dell'oggetto 'users'.
+        
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Registrazione avvenuta con successo')),
         );
-        Navigator.pop(context); // Return to login page
+        Navigator.pop(context); // Torna alla pagina di login
       }
     }
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 221, 243, 225), // Sfondo verde chiaro
+      backgroundColor: Color.fromARGB(255, 221, 243, 225),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 132, 199, 135),
         title: const Text('Registrazione'),
@@ -246,7 +264,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20), // casella stondata
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 validator: (value) {
@@ -263,7 +281,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 decoration: InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20), // casella stondata
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 obscureText: true,
@@ -278,10 +296,10 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 10),
               TextFormField(
                 controller: _confirmPasswordController,
-                decoration:  InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Conferma Password',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20), // casella stondata
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 obscureText: true,
@@ -291,6 +309,40 @@ class _RegisterPageState extends State<RegisterPage> {
                   }
                   if (value != _passwordController.text) {
                     return 'Le password non combaciano';
+                  }
+                  return null;
+                },
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  labelText: 'Nome',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Per favore inserisci il tuo nome';
+                  }
+                  return null;
+                },
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
+                controller: _surnameController,
+                decoration: InputDecoration(
+                  labelText: 'Cognome',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Per favore inserisci il tuo cognome';
                   }
                   return null;
                 },
@@ -313,11 +365,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         }
                         return _selectedRole == 'Studente'
                             ? const Color.fromARGB(255, 132, 199, 135)
-                            : const Color.fromARGB(255, 242, 255, 234); // Colore diverso quando selezionato
+                            : const Color.fromARGB(255, 242, 255, 234);
                       }),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20), // pulsante stondato
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
                     ),
@@ -337,11 +389,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         }
                         return _selectedRole == 'Insegnante'
                             ? const Color.fromARGB(255, 132, 199, 135)
-                            : const Color.fromARGB(255, 242, 255, 234); // Colore diverso quando selezionato
+                            : const Color.fromARGB(255, 242, 255, 234);
                       }),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20), // pulsante stondato
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
                     ),
