@@ -29,7 +29,7 @@ class _VideoNavigationState extends State<VideoNavigation> {
         children: [
           // Barra non fissa per navigare tra categorie, popolari, suggeriti
           Container(
-            color: Colors.white,
+            color:  Color.fromARGB(255, 230, 248, 247),
             child: const TabBar(
               labelColor: Colors.black,
               unselectedLabelColor: Colors.grey,
@@ -42,24 +42,27 @@ class _VideoNavigationState extends State<VideoNavigation> {
           ),
           // Contenuto delle schede
           Expanded(
-            child: FutureBuilder<List<Talk>>(
-              future: loadCsvData(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return const Center(child: Text('Errore nel caricamento dei dati'));
-                } else {
-                  final talks = snapshot.data!;
-                  return TabBarView(
-                    children: [
-                      buildTags(talks),// Mostra tutti i dati nella scheda "Categorie"
-                      buildPopular(talks), //  "Popolari", da aggiungere TF IDF 
-                      const Center(child: Text('Suggeriti')), // Placeholder per "Suggeriti"
-                    ],
-                  );
-                }
-              },
+           child: Container(
+              color: Colors.white,  // Imposta il colore di sfondo delle schede
+              child: FutureBuilder<List<Talk>>(
+                future: loadCsvData(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text('Errore nel caricamento dei dati'));
+                  } else {
+                    final talks = snapshot.data!;
+                    return TabBarView(
+                      children: [
+                        buildTags(talks), // Mostra tutti i dati nella scheda "Categorie"
+                        buildPopular(talks), //  "Popolari", da aggiungere TF IDF
+                        const Center(child: Text('Suggeriti')), // Placeholder per "Suggeriti"
+                      ],
+                    );
+                  }
+                },
+              ),
             ),
           ),
         ],
@@ -81,6 +84,7 @@ class _VideoNavigationState extends State<VideoNavigation> {
       itemBuilder: (context, index) {
         final talk = talks[index];
         return Card(
+          color: Color.fromARGB(255, 251, 251, 234), // Colore di sfondo della Card
           margin: const EdgeInsets.all(10.0),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
@@ -102,7 +106,7 @@ class _VideoNavigationState extends State<VideoNavigation> {
                   },
                   child: const Text(
                     'Guarda ora',
-                    style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+                    style: TextStyle(color: Color.fromARGB(255, 19, 93, 155), decoration: TextDecoration.underline),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -111,6 +115,7 @@ class _VideoNavigationState extends State<VideoNavigation> {
                   children: talk.tagCurrent.split(',').map((tag) {
                     return Chip(
                       label: Text(tag.trim()),
+                      backgroundColor: Color.fromARGB(255, 230, 248, 247),// Colore di sfondo
                     );
                   }).toList(),
                 ),
@@ -123,7 +128,7 @@ class _VideoNavigationState extends State<VideoNavigation> {
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: Colors.orange,
+                          color: Color.fromARGB(255, 37, 155, 151),
                         ),
                       ),
                     ),
@@ -173,7 +178,12 @@ class _VideoNavigationState extends State<VideoNavigation> {
                               selectedTag = selected ? tag.trim() : null;
                             });
                           },
-                    ),
+                          selectedColor: Colors.green, // Colore della casella selezionata
+                          backgroundColor:  Color.fromARGB(255, 230, 248, 247), // Colore della casella non selezionata
+                          labelStyle: TextStyle(
+                            color: selectedTag == tag.trim() ? Colors.white : Colors.black, // Colore del testo
+                          ),
+                        ),
                 );
               }).toList(),
             ),

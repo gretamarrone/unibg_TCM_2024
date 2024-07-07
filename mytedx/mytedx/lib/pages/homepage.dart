@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 221, 243, 225),
+        backgroundColor: Color.fromARGB(255, 37, 155, 151), // verde acqua
         title: const Text('Homepage'),
         actions: [
           IconButton(
@@ -17,28 +17,30 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text("Logout effettuato con successo"),
-                  actions: <Widget>[
-                    TextButton(
-                      child: const Text("OK"),
-                      onPressed: () {
-                        Navigator.of(context).pop(); // Chiudi il dialog
-                        Navigator.of(context).pushNamed('/'); // Vai alla pagina principale (main.dart)
-                      },
+                builder: (BuildContext context) => Theme(
+                  data: ThemeData(
+                    // Personalizza i colori del tema dell'AlertDialog
+                    colorScheme: ColorScheme.light(
+                      primary: Color.fromARGB(255, 37, 155, 151), // verde acqua
+                      onPrimary: Colors.white, // Colore del testo sull'azione primaria
+                      secondary: Color.fromARGB(255, 246, 250, 26), // giallo
+                      surface: Color.fromARGB(255, 230, 248, 247), // verde acqua chiaro
+                      onSurface: Colors.black, // Colore del testo sullo sfondo
                     ),
-                  ],
+                  ),
+                  child: AlertDialog(
+                    title: const Text("Logout effettuato con successo"),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text("OK"),
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Chiudi il dialog
+                          Navigator.of(context).pushNamed('/'); // Vai alla pagina principale (main.dart)
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.person),
-            onPressed: () {
-              // Naviga alla pagina del profilo
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfilePage()), // Naviga verso ProfilePage
               );
             },
           ),
@@ -49,7 +51,8 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            color: const Color.fromARGB(255, 221, 243, 225),
+            color: Color.fromARGB(255, 230, 248, 247),// verde acqua
+
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: TextField(
               decoration: InputDecoration(
@@ -66,7 +69,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: const Color.fromARGB(255, 221, 243, 225),
+        color:  Color.fromARGB(255, 255, 237, 75), // giallo
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

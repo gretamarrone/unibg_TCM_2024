@@ -17,6 +17,7 @@ class ProfilePage extends StatelessWidget {
       // Gestisci il caso in cui non trovi le informazioni dell'utente
       return Scaffold(
         appBar: AppBar(
+          backgroundColor:  Color.fromARGB(255, 255, 237, 75), // giallo
           title: const Text('Profilo'),
         ),
         body: const Center(
@@ -32,18 +33,53 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 37, 155, 151), // verde acqua      
         title: const Text('Profilo'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Nome: $userName'),
-            Text('Cognome: $userSurname'),
-            Text('Email: $userEmail'),
-            Text('Ruolo: $userRole'),
-            // Aggiungi altri campi a seconda delle informazioni che vuoi mostrare
-          ],
+      body: Container(
+        color: Color.fromARGB(255, 230, 248, 247), // verde acqua chiaro
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Nome: $userName',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black, // Colore del testo
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Cognome: $userSurname',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black, // Colore del testo
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Email: $userEmail',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black, // Colore del testo
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Ruolo: $userRole',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black, // Colore del testo
+                ),
+              ),
+              // Aggiungi altri campi a seconda delle informazioni che vuoi mostrare
+            ],
+          ),
         ),
       ),
     );

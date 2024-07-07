@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'pages/homepage.dart';
-//import 'pages/profile_page.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
-// Inizializza users come un Map di Map
-final Map<String, Map<String, dynamic>> users = {};
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -18,22 +15,23 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'Roboto',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Color.fromARGB(255, 19, 181, 202), // verde acqua
+          secondary: Color.fromARGB(255, 246, 250, 26), // giallo
+        ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'TEDxEdu'),
+      home: const MyHomePage(title: ' '),
       routes: {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
-        '/home': (context) => HomePage(), // Aggiunto il route per la homepage
-        //'/video_navigation': (context) => VideoNavigation(), // Rotta per la navigazione video
-        
+        '/home': (context) => HomePage(),
       },
     );
   }
 }
 
-String loggedInUserEmail = ''; // Variabile per memorizzare l'email dell'utente loggato
+String loggedInUserEmail = '';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -56,24 +54,32 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 221, 243, 225), // Sfondo verde chiaro
+      backgroundColor: Color.fromARGB(255, 230, 248, 247), // verde chiaro
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 132, 199, 135),
-        title: Text(widget.title),
+        backgroundColor: Color.fromARGB(255, 37, 155, 151), // verde acqua
+        title: Text(
+          widget.title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            const Text(
+              'TEDxEdu',
+              style: TextStyle(fontSize: 30, color: Colors.black54, fontWeight: FontWeight.bold),
+            ),
+
+            const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () => _navigateToLogin(context),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 132, 199, 135),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                textStyle: const TextStyle(fontSize: 16),
+                foregroundColor: Colors.white, backgroundColor: Color.fromARGB(255, 37, 155, 151), // verde acqua
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(30),
                 ),
               ),
               child: const Text('Login'),
@@ -82,12 +88,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: () => _navigateToRegister(context),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 132, 199, 135),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                textStyle: const TextStyle(fontSize: 16),
+                foregroundColor: Colors.black, backgroundColor: Color.fromARGB(255, 246, 250, 26),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(30),
                 ),
               ),
               child: const Text('Registrazione'),
@@ -116,9 +120,10 @@ class _LoginPageState extends State<LoginPage> {
       final email = _emailController.text;
       final password = _passwordController.text;
 
-      if (users.containsKey(email) && users[email]!= null && users[email]!['password'] == password) {
-        // Navigate to home page on successful login
-        loggedInUserEmail = email; // Memorizza l'email dell'utente loggato
+      // Simulated login logic
+      // Replace with actual authentication logic
+      if (users.containsKey(email) && users[email] != null && users[email]!['password'] == password) {
+        loggedInUserEmail = email;
         Navigator.pushNamed(context, '/home');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -131,9 +136,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 221, 243, 225), // Sfondo verde chiaro
+      backgroundColor:Color.fromARGB(255, 230, 248, 247), // verde chiaro
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 132, 199, 135),
+        backgroundColor:Color.fromARGB(255, 37, 155, 151), // verde acqua
         title: const Text('Login'),
       ),
       body: Padding(
@@ -145,11 +150,26 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20), // casella stondata
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderSide: BorderSide(
+                      color: Color.fromARGB(255, 37, 155, 151), // Colore della linea del bordo quando non è focalizzato
+                      width: 2.0, // Spessore della linea del bordo quando non è focalizzato
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderSide: BorderSide(
+                      color: Color.fromARGB(255, 0, 0, 0), // Colore della linea del bordo quando è focalizzato
+                      width: 2.0, // Spessore della linea del bordo quando è focalizzato
+                    ),
+                  ),
+
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -161,10 +181,24 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 10),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20), // casella stondata
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderSide: BorderSide(
+                      color: Color.fromARGB(255, 37, 155, 151), // Colore della linea del bordo quando non è focalizzato
+                      width: 2.0, // Spessore della linea del bordo quando non è focalizzato
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderSide: BorderSide(
+                      color: Color.fromARGB(255, 0, 0, 0), // Colore della linea del bordo quando è focalizzato
+                      width: 2.0, // Spessore della linea del bordo quando è focalizzato
+                    ),
                   ),
                 ),
                 obscureText: true,
@@ -179,12 +213,10 @@ class _LoginPageState extends State<LoginPage> {
               ElevatedButton(
                 onPressed: _login,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 132, 199, 135),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                  textStyle: const TextStyle(fontSize: 16),
+                  foregroundColor:  Color.fromARGB(255, 255, 255, 255), backgroundColor: Color.fromARGB(255, 37, 155, 151), // verde acqua
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: const Text('Login'),
@@ -209,37 +241,32 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController(); // Aggiunto per il nome
-  final TextEditingController _surnameController = TextEditingController(); // Aggiunto per il cognome
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _surnameController = TextEditingController();
   String _selectedRole = 'Studente';
 
   void _register() {
     if (_formKey.currentState!.validate()) {
       final email = _emailController.text;
       final password = _passwordController.text;
-      final name = _nameController.text; // Recupera il nome
-      final surname = _surnameController.text; // Recupera il cognome
+      final name = _nameController.text;
+      final surname = _surnameController.text;
 
       if (users.containsKey(email)) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Email già registrata')),
         );
       } else {
-        // Memorizza i dati dell'utente
         users[email] = {
           'password': password,
           'name': name,
           'surname': surname,
           'role': _selectedRole,
         };
-        // Aggiungi il nome e cognome all'utente
-        // Puoi decidere come gestire queste informazioni, ad esempio salvandole in un altro oggetto
-        // o modificando la struttura dell'oggetto 'users'.
-        
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Registrazione avvenuta con successo')),
         );
-        Navigator.pop(context); // Torna alla pagina di login
+        Navigator.pop(context); // Ritorna alla pagina di login
       }
     }
   }
@@ -247,9 +274,9 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 221, 243, 225),
+      backgroundColor: Color.fromARGB(255, 255, 255, 229),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 132, 199, 135),
+        backgroundColor: Color.fromARGB(255, 246, 250, 26),
         title: const Text('Registrazione'),
       ),
       body: Padding(
@@ -260,11 +287,43 @@ class _RegisterPageState extends State<RegisterPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Nome',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Per favore inserisci il tuo nome';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
+                controller: _surnameController,
+                decoration: const InputDecoration(
+                  labelText: 'Cognome',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Per favore inserisci il tuo cognome';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                 ),
                 validator: (value) {
@@ -273,15 +332,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   }
                   return null;
                 },
-                style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 10),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                 ),
                 obscureText: true,
@@ -291,15 +349,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   }
                   return null;
                 },
-                style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 10),
               TextFormField(
                 controller: _confirmPasswordController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Conferma Password',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                 ),
                 obscureText: true,
@@ -308,45 +365,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     return 'Per favore conferma la password';
                   }
                   if (value != _passwordController.text) {
-                    return 'Le password non combaciano';
+                    return 'Le password non coincidono';
                   }
                   return null;
                 },
-                style: const TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 10),
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: 'Nome',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Per favore inserisci il tuo nome';
-                  }
-                  return null;
-                },
-                style: const TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 10),
-              TextFormField(
-                controller: _surnameController,
-                decoration: InputDecoration(
-                  labelText: 'Cognome',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Per favore inserisci il tuo cognome';
-                  }
-                  return null;
-                },
-                style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 10),
               Row(
@@ -358,19 +380,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         _selectedRole = 'Studente';
                       });
                     },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          return const Color.fromARGB(255, 132, 199, 135);
-                        }
-                        return _selectedRole == 'Studente'
-                            ? const Color.fromARGB(255, 132, 199, 135)
-                            : const Color.fromARGB(255, 242, 255, 234);
-                      }),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 0, 0, 0), backgroundColor: _selectedRole == 'Studente' ? Color.fromARGB(255, 246, 250, 26) : Colors.grey,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
                     ),
                     child: const Text('Studente'),
@@ -382,19 +395,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         _selectedRole = 'Insegnante';
                       });
                     },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          return const Color.fromARGB(255, 132, 199, 135);
-                        }
-                        return _selectedRole == 'Insegnante'
-                            ? const Color.fromARGB(255, 132, 199, 135)
-                            : const Color.fromARGB(255, 242, 255, 234);
-                      }),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 0, 0, 0), backgroundColor: _selectedRole == 'Insegnante' ? Color.fromARGB(255, 246, 250, 26) : Colors.grey,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
                     ),
                     child: const Text('Insegnante'),
@@ -405,12 +409,10 @@ class _RegisterPageState extends State<RegisterPage> {
               ElevatedButton(
                 onPressed: _register,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 132, 199, 135),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                  textStyle: const TextStyle(fontSize: 16),
+                  foregroundColor: Colors.white, backgroundColor: Color.fromARGB(255, 19, 181, 202), // verde acqua
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: const Text('Registrazione'),
@@ -422,3 +424,5 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
+
+final Map<String, Map<String, dynamic>> users = {};
