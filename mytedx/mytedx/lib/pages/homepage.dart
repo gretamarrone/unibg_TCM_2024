@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'video_navigation.dart';
-import '../models/talk.dart'; // Assumendo che tu abbia un modello per gestire i dati degli utenti
+//import '../models/talk.dart'; // Assumendo che tu abbia un modello per gestire i dati degli utenti
 import 'profile_page.dart';
 
 
