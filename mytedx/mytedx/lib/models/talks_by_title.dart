@@ -1,3 +1,5 @@
+/*
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'talk.dart';
@@ -122,3 +124,6 @@ Future<List<Talk>> getTalksByScore(int page) async {
     throw Exception('Failed to load talks');
   }
 }
+
+
+*/
